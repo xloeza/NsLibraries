@@ -21,10 +21,6 @@ Object.method('where', function(callback){
     return filterArray;
 });
 
-function isFunction(object) {
- return object && getClass.call(object) == '[object Function]';
-}
-
 Object.method('any', function(callback){    
     if(typeof callback === "function"){
         var arrayLength = this.length;
