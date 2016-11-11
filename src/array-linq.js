@@ -9,3 +9,14 @@ Object.method('each', function(callback){
         callback(this[x], x);
     }
 });
+
+Object.method('where', function(callback){
+    var filterArray = [];
+    var arrayLength = this.length;
+    for(var x = 0; x < arrayLength; x++ ){
+        if(callback(this[x])){
+            filterArray.push(this[x]);
+        }
+    }
+    return filterArray;
+});
