@@ -15,21 +15,26 @@ var people = [
       console.log(message);
     };
 
-describe('array extension method where', function() {
+describe('array extension method any', function() {
+  afterEach(function() {
+    messageList =[];
+  });
+  
 
-  it('should where method filter list to return two elements', function() { 
-    var notPhpDevs = people.where(function(dev){
-                        var skills = dev.skills.where(function(skill) { return skill == 'PHP'; });
-                        return skills.length == 0;
+  it('should where method be linked with each and print filtered list using any callback', function() { 
+    people.where(function(dev){
+                        return !dev.skills.any(function(skill) { return skill == 'PHP' })
                     })
+          .each(logPerson);
 
-    expect( notPhpDevs.length ).to.equal(2);    
+    expect( messageList.length ).to.equal(2);
+    expect( messageList[0] ).to.equal('1.- pedro is 29 years old');
+    expect( messageList[1] ).to.equal('2.- pablo is 26 years old');  
   });
 
-  it('should where method be linked with each and print filtered list', function() { 
+  it('should where method be linked with each and print filtered list using any array', function() { 
     people.where(function(dev){
-                        var skills = dev.skills.where(function(skill) { return skill == 'PHP'; });
-                        return skills.length == 0;
+                        return !dev.skills.any('PHP');
                     })
           .each(logPerson);
 

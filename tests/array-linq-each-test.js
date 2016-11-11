@@ -1,7 +1,6 @@
 //debug: mocha tests --recursive --watch --debug-brk
 var chai = require('chai');
 var expect = chai.expect;
-var sinon = require('mocha-sinon');
 require('./../src/array-linq');
 
 var people = [ 
@@ -14,7 +13,7 @@ var people = [
   messageList =[];
 
 
-describe('array extension methods', function() {
+describe('array extension methods each', function() {
 
   it('should executes callback(x, i) for each element of array', function() { 
     people.each(function(x, i){ 
