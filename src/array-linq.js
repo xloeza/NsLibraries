@@ -22,18 +22,15 @@ Object.method('where', function(callback){
 });
 
 Object.method('any', function(callback){    
-    if(typeof callback === "function"){
-        var arrayLength = this.length;
-        for(var x = 0; x < arrayLength; x++ ){
+    var arrayLength = this.length;
+    for(var x = 0; x < arrayLength; x++ ){
+        if(typeof callback === "function"){
             if(callback(this[x])){
                 return true;
             }
         }
-    }
-    else{
-        var arrayLength = this.length;
-        for(var x = 0; x < arrayLength; x++ ){
-            var anyValuesArrayLenght = arguments.length; 
+        else{
+            var anyValuesArrayLenght = arguments.length;
             for(var y = 0; y < anyValuesArrayLenght; y++){
                 if(this[x] === arguments[y]){
                     return true;
@@ -41,7 +38,6 @@ Object.method('any', function(callback){
             }
         }
     }
-    
     return false;
 });
 
