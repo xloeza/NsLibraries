@@ -3,29 +3,30 @@ Object.prototype.method = function (name, func) {
     return this;
 };
 
-Object.method('each', function(callback){
+Array.method('each', function(spec){
     var arrayLength = this.length;
+    
     for(var x = 0; x < arrayLength; x++){
-        callback(this[x], x);
+        spec(this[x], x);
     }
 });
 
-Object.method('where', function(callback){
+Array.method('where', function(spec){
     var filterArray = [];
     var arrayLength = this.length;
     for(var x = 0; x < arrayLength; x++ ){
-        if(callback(this[x])){
+        if(spec(this[x])){
             filterArray.push(this[x]);
         }
     }
     return filterArray;
 });
 
-Object.method('any', function(callback){    
+Array.method('any', function(spec){    
     var arrayLength = this.length;
     for(var x = 0; x < arrayLength; x++ ){
-        if(typeof callback === "function"){
-            if(callback(this[x])){
+        if(typeof spec === "function"){
+            if(spec(this[x])){
                 return true;
             }
         }
