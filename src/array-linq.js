@@ -110,3 +110,28 @@ Array.method('first', function (spec) {
         
     return first;
 });
+
+Array.method('last', function (spec) {
+    var last = null,
+        element = null,
+        arrayLength = 0,
+        count = 0;
+    if(this !== null){
+        var arrayLength = this.length;
+        if(spec === undefined){
+            last = this[arrayLength-1]
+        }
+        else{           
+            count = arrayLength - 1;
+            while(count >= 0 && last === null){
+                element = this[count]
+                if (spec(element)) {
+                    last = element;                    
+                }
+                count = count - 1;
+            };            
+        }
+    }
+        
+    return last;
+});
