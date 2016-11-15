@@ -1,9 +1,15 @@
-Object.prototype.method = function (name, func) {
+Object.prototype.method = function(name, func) {
     this.prototype[name] = func;
     return this;
 };
 
-Array.method('each', function (spec) {
+if (typeof Array.isArray === "undefined") {
+    Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === "[object Array]";
+    };
+}
+
+Array.method('each', function(spec) {
     var arrayLength = this.length;
 
     for (var x = 0; x < arrayLength; x = x + 1) {
@@ -11,7 +17,7 @@ Array.method('each', function (spec) {
     }
 });
 
-Array.method('where', function (spec) {
+Array.method('where', function(spec) {
     var filterArray = [];
     this.each((element, index) => {
 
@@ -23,7 +29,7 @@ Array.method('where', function (spec) {
     return filterArray;
 });
 
-Array.method('any', function (spec) {
+Array.method('any', function(spec) {
     var arrayLength = this.length;
     for (var x = 0; x < arrayLength; x = x + 1) {
         if (typeof spec === "function") {
@@ -43,7 +49,7 @@ Array.method('any', function (spec) {
     return false;
 });
 
-Array.method('select', function (spec) {
+Array.method('select', function(spec) {
     var selectArray = [];
 
     this.each((element, index) => {
@@ -53,7 +59,7 @@ Array.method('select', function (spec) {
     return selectArray;
 });
 
-Array.method('take', function (howMany, spec) {
+Array.method('take', function(howMany, spec) {
     var taked = [];
 
     var arrayLength = this.length;
@@ -72,7 +78,7 @@ Array.method('take', function (howMany, spec) {
     return taked;
 });
 
-Array.method('skip', function (howMany) {
+Array.method('skip', function(howMany) {
     var taked = [];
     var arrayLength = this.length;
     if (howMany === 0) {
@@ -85,7 +91,7 @@ Array.method('skip', function (howMany) {
     return taked;
 });
 
-Array.method('first', function (spec) {
+Array.method('first', function(spec) {
     var first = null,
         element = null,
         arrayLength = 0,
@@ -110,7 +116,7 @@ Array.method('first', function (spec) {
     return first;
 });
 
-Array.method('last', function (spec) {
+Array.method('last', function(spec) {
     var last = null,
         element = null,
         arrayLength = 0,
@@ -136,10 +142,10 @@ Array.method('last', function (spec) {
 });
 
 
-Array.method('count', function (spec) {
+Array.method('count', function(spec) {
     var count = 0,
         length = 0;
-    if (this !== null) {        
+    if (this !== null) {
         if (spec === undefined) {
             return this.length;
         }
@@ -156,7 +162,7 @@ Array.method('count', function (spec) {
     return count;
 });
 
-Array.method('index', function (spec) {
+Array.method('index', function(spec) {
     var indexId = -1,
         count = 0,
         element = null;
@@ -181,7 +187,7 @@ Array.method('index', function (spec) {
     return indexId;
 });
 
-Array.method('pluck', function (spec) {
+Array.method('pluck', function(spec) {
     var pluckArray = [];
     this.each((element, index) => {
         pluckArray.push(element[spec]);
@@ -189,7 +195,7 @@ Array.method('pluck', function (spec) {
     return pluckArray;
 });
 
-Array.method('sum', function (spec) {
+Array.method('sum', function(spec) {
     var sumVal;
     if (spec === undefined) {
         sumVal = this.reduce((a, b) => a + b);
@@ -200,8 +206,8 @@ Array.method('sum', function (spec) {
     return sumVal;
 });
 
-Array.method('max', function (comparer) {
-    if(this === null || this.length === 0){
+Array.method('max', function(comparer) {
+    if (this === null || this.length === 0) {
         return null
     }
     if (comparer === undefined) {
@@ -209,11 +215,11 @@ Array.method('max', function (comparer) {
     }
     else {
         return this.reduce((a, b) => comparer(a, b) > 0 ? a : b);
-    }    
+    }
 });
 
-Array.method('min', function (comparer) {    
-    if(this === null || this.length === 0){
+Array.method('min', function(comparer) {
+    if (this === null || this.length === 0) {
         return null
     }
     if (comparer === undefined) {
@@ -221,5 +227,21 @@ Array.method('min', function (comparer) {
     }
     else {
         return this.reduce((a, b) => comparer(a, b) > 0 ? b : a);
-    }    
+    }
+});
+
+
+Array.method('flatten', function(comparer) {
+    var flattened = [];
+    this.each((element, index) => {
+        if (!Array.isArray(element)) {
+            flattened.push(element);
+        }
+        else {
+            var arrayNew = element.flatten();
+            flattened.push(...arrayNew);
+        }
+    });
+
+    return flattened;
 });
