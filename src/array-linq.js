@@ -156,3 +156,28 @@ Array.method('count', function (spec) {
         
     return count;
 });
+
+Array.method('index', function (spec) {
+    var indexId = -1,
+        count = 0,
+        element = null;
+    if(this !== null){
+        var arrayLength = this.length;
+        while(count < arrayLength && indexId === -1){
+                element = this[count]
+                if (typeof spec === "function"){
+                    if (spec(element)) {
+                        indexId = count;                    
+                    }
+                }
+                else{
+                    if (element === spec) {
+                        indexId = count;                    
+                    }
+                }
+                count = count + 1;
+        };  
+    }
+        
+    return indexId;
+});
