@@ -138,14 +138,14 @@ Array.method('last', function (spec) {
 
 Array.method('count', function (spec) {
     var count = 0,
-        arrayLength = 0;
-    if (this !== null) {
-        arrayLength = this.length;
+        length = 0;
+    if (this !== null) {        
         if (spec === undefined) {
-            count = arrayLength;
+            return this.length;
         }
         else {
-            for (var x = 0; x < arrayLength; x = x + 1) {
+            length = this.length;
+            for (var x = 0; x < length; x = x + 1) {
                 if (spec(this[x])) {
                     count = count + 1
                 }
@@ -201,45 +201,25 @@ Array.method('sum', function (spec) {
 });
 
 Array.method('max', function (comparer) {
-    var maxVal;
+    if(this === null || this.length === 0){
+        return null
+    }
     if (comparer === undefined) {
-        maxVal = this.reduce((a, b) => a > b ? a : b);
+        return this.reduce((a, b) => a > b ? a : b);
     }
     else {
-        var arrayLength = this.length;
-        for (var x = 0; x < arrayLength; x = x + 1) {
-            if (x === 0) {
-                maxVal = this[x];
-            }
-            else {
-                if (comparer(this[x], maxVal) > 0) {
-                    maxVal = this[x];
-                }
-            }
-
-        }
-    }
-    return maxVal;
+        return this.reduce((a, b) => comparer(a, b) > 0 ? a : b);
+    }    
 });
 
-Array.method('min', function (comparer) {
-    var minVal;
+Array.method('min', function (comparer) {    
+    if(this === null || this.length === 0){
+        return null
+    }
     if (comparer === undefined) {
-        minVal = this.reduce((a, b) => a > b ? b : a);
+        return this.reduce((a, b) => a > b ? b : a);
     }
     else {
-        var arrayLength = this.length;
-        for (var x = 0; x < arrayLength; x = x + 1) {
-            if (x === 0) {
-                minVal = this[x];
-            }
-            else {
-                if (comparer(this[x], minVal) < 0) {
-                    minVal = this[x];
-                }
-            }
-
-        }
-    }
-    return minVal;
+        return this.reduce((a, b) => comparer(a, b) > 0 ? b : a);
+    }    
 });
