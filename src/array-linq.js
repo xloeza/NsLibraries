@@ -221,3 +221,25 @@ Array.method('max', function (comparer) {
     }
     return maxVal;
 });
+
+Array.method('min', function (comparer) {
+    var minVal;
+    if (comparer === undefined) {
+        minVal = this.reduce((a, b) => a > b ? b : a);
+    }
+    else {
+        var arrayLength = this.length;
+        for (var x = 0; x < arrayLength; x = x + 1) {
+            if (x === 0) {
+                minVal = this[x];
+            }
+            else {
+                if (comparer(this[x], minVal) < 0) {
+                    minVal = this[x];
+                }
+            }
+
+        }
+    }
+    return minVal;
+});
