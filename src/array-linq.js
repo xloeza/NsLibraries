@@ -135,3 +135,24 @@ Array.method('last', function (spec) {
         
     return last;
 });
+
+
+Array.method('count', function (spec) {
+    var count = 0,
+    arrayLength = 0;
+    if(this !== null){     
+        arrayLength = this.length;   
+        if(spec === undefined){
+            count = arrayLength;
+        }
+        else{           
+            for (var x = 0; x < arrayLength; x = x + 1) {
+                if(spec(this[x])){
+                    count = count + 1
+                }
+            }        
+        }
+    }
+        
+    return count;
+});
