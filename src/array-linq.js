@@ -181,3 +181,11 @@ Array.method('index', function (spec) {
         
     return indexId;
 });
+
+Array.method('pluck', function (spec) {
+    var pluckArray = [];
+    this.each((element, index) => {
+        pluckArray.push(element[spec]);
+    });
+    return pluckArray;
+});
