@@ -24,10 +24,7 @@ describe('array extension methods pluck', function () {
     it('should pluck(spec) return array with the property', function () {
         children
             .pluck('name')
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
 
         expect(messageList.length).to.equal(9);

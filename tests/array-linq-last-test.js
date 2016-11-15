@@ -26,30 +26,28 @@ describe('array extension methods last', function () {
     it('should last(spec) return last element in array when no spec defined', function () {
         var kid = children
             .last();
-        
-        console.log(kid.name);
+
         expect(kid.name).to.equal('martin');
     });
 
     it('should last(spec) return last element in array that accomplish specification', function () {
         var kid = children
             .last(child => child.sex === 'f');
-        
-        console.log(kid.name);
+
         expect(kid.name).to.equal('auro');
     });
 
     it('should last(spec) return null as last element in an empty array', function () {
         var kid = []
             .last(child => child.sex === 'm');
-        
+
         expect(kid).to.equal(null);
     });
 
     it('should last(spec) return null as last element in an empty array if no match specification', function () {
         var kid = children
             .last(child => child.sex === 'u');
-        
+
         expect(kid).to.equal(null);
     });
 

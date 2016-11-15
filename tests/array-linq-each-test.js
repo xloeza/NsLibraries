@@ -19,7 +19,6 @@ describe('array extension methods each', function () {
     people.each((x, i) => {
       var message = (i + 1) + '.- ' + x.name + ' is ' + x.age + ' years old';
       messageList.push(message);
-      console.log(message);
     });
 
     expect(messageList.length).to.equal(5);

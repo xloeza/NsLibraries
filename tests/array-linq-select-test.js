@@ -17,12 +17,9 @@ describe('array extension methods select', function () {
 
   it('should executes spec(x) for each element of array', function () {
     people
-        .select(dev => dev.name)
-        .each(x => {
-            console.log(x);
-            messageList.push(x);
-        });
-    
+      .select(dev => dev.name)
+      .each(x => messageList.push(x));
+
     expect(messageList.length).to.equal(5);
     expect(messageList[0]).to.equal('pedro');
     expect(messageList[1]).to.equal('juan');

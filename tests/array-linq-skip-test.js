@@ -26,10 +26,7 @@ describe('array extension methods skip', function () {
     it('should skip(howmany) return  a new array without the first howmany elements', function () {
         children
             .skip(3)
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
         expect(messageList.length).to.equal(6);
         expect(messageList[0].name).to.equal('yadi');
@@ -43,10 +40,7 @@ describe('array extension methods skip', function () {
     it('should skip(howmany) return  a new array without the first howmany elements with all the list when zero skiped', function () {
         children
             .skip(0)
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
         expect(messageList.length).to.equal(9);
         expect(messageList[0].name).to.equal('ana');
@@ -63,11 +57,8 @@ describe('array extension methods skip', function () {
     it('should skip(howmany) return  a new array without the first howmany elements with emptylist when howmany bigger than array length', function () {
         children
             .skip(10)
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
-        expect(messageList.length).to.equal(0);       
+        expect(messageList.length).to.equal(0);
     });
 });

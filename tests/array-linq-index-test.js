@@ -26,24 +26,21 @@ describe('array extension methods index', function () {
     it('should index(spec) return the zero based position based on specification added', function () {
         var banyIndex = children
             .index(child => child.name === 'bany');
-        
-        console.log(banyIndex);
+
         expect(banyIndex).to.equal(5);
     });
 
     it('should index(spec) return -1 if no match specification', function () {
         var banyIndex = children
             .index(child => child.name === 'mark');
-        
-        console.log(banyIndex);
+
         expect(banyIndex).to.equal(-1);
     });
 
     it('should return the index for any kind of array', function () {
         var id = [1, 3, 5, 7, 9, 11]
             .index(7);
-        
-        console.log(id);
+
         expect(id).to.equal(3);
     });
 

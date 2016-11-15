@@ -26,10 +26,7 @@ describe('array extension methods take', function () {
     it('should take(howmany, spec) return  a new array with howmany elements', function () {
         children
             .take(3)
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
         expect(messageList.length).to.equal(3);
         expect(messageList[0].name).to.equal('ana');
@@ -40,10 +37,7 @@ describe('array extension methods take', function () {
     it('should take(howmany, spec) return  a new array with howmany elements filtered by spec', function () {
         children
             .take(3, child => child.sex === 'f')
-            .each(x => {
-                console.log(x);
-                messageList.push(x);
-            });
+            .each(x => messageList.push(x));
 
         expect(messageList.length).to.equal(3);
         expect(messageList[0].name).to.equal('ana');

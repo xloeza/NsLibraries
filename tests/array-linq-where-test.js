@@ -12,7 +12,6 @@ var people = [
   logPerson = (x, i) => {
     var message = (i + 1) + '.- ' + x.name + ' is ' + x.age + ' years old';
     messageList.push(message);
-    console.log(message);
   };
 
 describe('array extension method where', function () {

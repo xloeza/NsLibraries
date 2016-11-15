@@ -26,30 +26,28 @@ describe('array extension methods first', function () {
     it('should first(spec) return first element in array when no spec defined', function () {
         var kid = children
             .first();
-        
-        console.log(kid.name);
+
         expect(kid.name).to.equal('ana');
     });
 
     it('should first(spec) return first element in array that accomplish specification', function () {
         var kid = children
             .first(child => child.sex === 'm');
-        
-        console.log(kid.name);
+
         expect(kid.name).to.equal('fosto');
     });
 
     it('should first(spec) return null as first element in an empty array', function () {
         var kid = []
             .first(child => child.sex === 'm');
-        
+
         expect(kid).to.equal(null);
     });
 
     it('should first(spec) return null as first element in an empty array if no match specification', function () {
         var kid = children
             .first(child => child.sex === 'u');
-        
+
         expect(kid).to.equal(null);
     });
 
