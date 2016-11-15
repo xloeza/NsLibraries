@@ -26,16 +26,14 @@ describe('array extension methods count', function () {
     it('should count(spec) return array lenght if no specification added', function () {
         var childrenNumber = children
             .count();
-        
-        console.log(childrenNumber);
+
         expect(childrenNumber).to.equal(9);
     });
 
-    it('should count(spec) return the number of elements that accomplish the specification added', function () {       
-         var childrenNumber = children
+    it('should count(spec) return the number of elements that accomplish the specification added', function () {
+        var childrenNumber = children
             .count(child => child.sex === 'f');
-        
-        console.log(childrenNumber);
+
         expect(childrenNumber).to.equal(5);
     });
 });

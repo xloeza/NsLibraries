@@ -17,7 +17,6 @@ describe('array extension methods min', function () {
         var min = [10, 3, 5, 1, 7, 9, 11]
             .min();
 
-        console.log(min);
         expect(min).to.equal(1);
     });
 
@@ -25,7 +24,6 @@ describe('array extension methods min', function () {
         var shortestName = people
             .min((p1, p2) => p1.name.length - p2.name.length);
 
-        console.log(shortestName);
         expect(shortestName.name).to.equal('top');
     });
 
@@ -33,7 +31,6 @@ describe('array extension methods min', function () {
         var jounger = people
             .min((p1, p2) => p1.age - p2.age);
 
-        console.log(jounger);
         expect(jounger.name).to.equal('pedro');
     });
 

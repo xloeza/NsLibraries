@@ -17,7 +17,6 @@ describe('array extension methods max', function () {
         var max = [1, 3, 5, 7, 9, 11]
             .max();
 
-        console.log(max);
         expect(max).to.equal(11);
     });
 
@@ -25,7 +24,6 @@ describe('array extension methods max', function () {
         var longestName = people
             .max((p1, p2) => p1.name.length - p2.name.length);
 
-        console.log(longestName);
         expect(longestName.name).to.equal('pancho');
     });
 
@@ -33,7 +31,6 @@ describe('array extension methods max', function () {
         var older = people
             .max((p1, p2) => p1.age - p2.age);
 
-        console.log(older);
         expect(older.name).to.equal('pablo');
     });
 
