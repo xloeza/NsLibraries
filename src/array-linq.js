@@ -3,37 +3,38 @@ Object.prototype.method = function (name, func) {
     return this;
 };
 
-Array.method('each', function(spec){
+Array.method('each', function (spec) {
     var arrayLength = this.length;
-    
-    for(var x = 0; x < arrayLength; x++){
+
+    for (var x = 0; x < arrayLength; x = x + 1) {
         spec(this[x], x);
     }
 });
 
-Array.method('where', function(spec){
+Array.method('where', function (spec) {
     var filterArray = [];
-    var arrayLength = this.length;
-    for(var x = 0; x < arrayLength; x++ ){
-        if(spec(this[x])){
-            filterArray.push(this[x]);
+    this.each((element, index) => {
+
+        if (spec(element)) {
+            filterArray.push(element);
         }
-    }
+    });
+
     return filterArray;
 });
 
-Array.method('any', function(spec){    
+Array.method('any', function (spec) {
     var arrayLength = this.length;
-    for(var x = 0; x < arrayLength; x++ ){
-        if(typeof spec === "function"){
-            if(spec(this[x])){
+    for (var x = 0; x < arrayLength; x = x + 1) {
+        if (typeof spec === "function") {
+            if (spec(this[x])) {
                 return true;
             }
         }
-        else{
+        else {
             var anyValuesArrayLenght = arguments.length;
-            for(var y = 0; y < anyValuesArrayLenght; y++){
-                if(this[x] === arguments[y]){
+            for (var y = 0; y < anyValuesArrayLenght; y++) {
+                if (this[x] === arguments[y]) {
                     return true;
                 }
             }
@@ -42,3 +43,70 @@ Array.method('any', function(spec){
     return false;
 });
 
+Array.method('select', function (spec) {
+    var selectArray = [];
+
+    this.each((element, index) => {
+        selectArray.push(spec(element))
+    });
+
+    return selectArray;
+});
+
+Array.method('take', function (howMany, spec) {
+    var taked = [];
+
+    var arrayLength = this.length;
+    if (howMany > 0) {
+        if (spec === undefined) {
+            for (var x = 0; x < arrayLength && x < howMany; x = x + 1) {
+                taked.push(this[x]);
+            }
+        }
+        else {
+            return this.where(spec).take(howMany);
+        }
+
+    }
+
+    return taked;
+});
+
+Array.method('skip', function (howMany) {
+    var taked = [];
+    var arrayLength = this.length;
+    if(howMany === 0)
+    {
+        return this;
+    }    
+    if (arrayLength > howMany) {        
+        taked = this.slice(howMany, arrayLength);
+    }
+        
+    return taked;
+});
+
+Array.method('first', function (spec) {
+    var first = null,
+        element = null,
+        arrayLength = 0,
+        count = 0;
+    if(this !== null){
+        if(spec === undefined){
+            first = this[0]
+        }
+        else{   
+            var arrayLength = this.length;
+
+            while(count < arrayLength && first === null){
+                element = this[count]
+                if (spec(element)) {
+                    first = element;                    
+                }
+                count = count + 1;
+            };            
+        }
+    }
+        
+    return first;
+});
