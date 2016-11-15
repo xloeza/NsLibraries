@@ -34,11 +34,4 @@ describe('array extension methods pluck', function () {
 
     });
 
-    // it('should count(spec) return the number of elements that accomplish the specification added', function () {       
-    //      var childrenNumber = children
-    //         .count(child => child.sex === 'f');
-
-    //     console.log(childrenNumber);
-    //     expect(childrenNumber).to.equal(5);
-    // });
 });
