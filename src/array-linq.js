@@ -189,3 +189,14 @@ Array.method('pluck', function (spec) {
     });
     return pluckArray;
 });
+
+Array.method('sum', function (spec) {
+    var sumVal;
+    if (spec === undefined) {
+        sumVal = this.reduce((a, b) => a + b);
+    }
+    else{
+        sumVal = this.map(spec).reduce((a, b) => a + b);
+    }
+    return sumVal;
+});
