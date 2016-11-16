@@ -14,35 +14,19 @@ var children = [
     { name: 'rod', sex: null },
     { name: 'auro', sex: 'f' },
     { name: 'martin', sex: 'm' }
-],
-    messageList = [];
+];
 
 
-describe('array extension methods take', function () {
-    afterEach(function () {
-        messageList = [];
+describe('array extension methods take(spec)', function () {
+
+    it('should return  a new array with the first howmany elements', function () {
+
+        expect(children.take(3)).to.eql([{ name: 'ana', sex: 'f' }, { name: 'fosto', sex: 'm' }, { name: 'jane', sex: 'f' }]);
     });
 
-    it('should take(howmany, spec) return  a new array with howmany elements', function () {
-        children
-            .take(3)
-            .each(x => messageList.push(x));
+    it('should return  a new array with the first howmany elements filtered by specification', function () {
 
-        expect(messageList.length).to.equal(3);
-        expect(messageList[0].name).to.equal('ana');
-        expect(messageList[1].name).to.equal('fosto');
-        expect(messageList[2].name).to.equal('jane');
-    });
-
-    it('should take(howmany, spec) return  a new array with howmany elements filtered by spec', function () {
-        children
-            .take(3, child => child.sex === 'f')
-            .each(x => messageList.push(x));
-
-        expect(messageList.length).to.equal(3);
-        expect(messageList[0].name).to.equal('ana');
-        expect(messageList[1].name).to.equal('jane');
-        expect(messageList[2].name).to.equal('yadi');
+        expect(children.take(3, child => child.sex === 'f')).to.eql([{ name: 'ana', sex: 'f' }, { name: 'jane', sex: 'f' }, { name: 'yadi', sex: 'f' }]);
     });
 
 });

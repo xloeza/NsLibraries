@@ -14,41 +14,29 @@ var children = [
     { name: 'rod', sex: null },
     { name: 'auro', sex: 'f' },
     { name: 'martin', sex: 'm' }
-],
-    messageList = [];
+];
 
 
-describe('array extension methods last', function () {
-    afterEach(function () {
-        kid = null;
+describe('array extension methods last(spec)', function () {
+
+    it('should return last element in array when no spec defined', function () {
+
+        expect(children.last().name).to.equal('martin');
     });
 
-    it('should last(spec) return last element in array when no spec defined', function () {
-        var kid = children
-            .last();
+    it('should return last element in array that accomplish specification', function () {
 
-        expect(kid.name).to.equal('martin');
-    });
-
-    it('should last(spec) return last element in array that accomplish specification', function () {
-        var kid = children
-            .last(child => child.sex === 'f');
-
-        expect(kid.name).to.equal('auro');
+        expect(children.last(child => child.sex === 'f').name).to.equal('auro');
     });
 
     it('should last(spec) return null as last element in an empty array', function () {
-        var kid = []
-            .last(child => child.sex === 'm');
 
-        expect(kid).to.equal(null);
+        expect([].last(child => child.sex === 'm')).to.equal(null);
     });
 
     it('should last(spec) return null as last element in an empty array if no match specification', function () {
-        var kid = children
-            .last(child => child.sex === 'u');
 
-        expect(kid).to.equal(null);
+        expect(children.last(child => child.sex === 'u')).to.equal(null);
     });
 
 });

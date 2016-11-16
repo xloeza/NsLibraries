@@ -10,28 +10,22 @@ var people = [
     { name: 'top', age: 12 }
 ];
 
-describe('array extension methods min', function () {
+describe('array extension methods min(spec)', function () {
 
 
     it('should return the minimum of all array elements', function () {
-        var min = [10, 3, 5, 1, 7, 9, 11]
-            .min();
 
-        expect(min).to.equal(1);
+        expect([10, 3, 5, 1, 7, 9, 11].min()).to.equal(1);
     });
 
-    it('should return the sum of all array elements applyin the spec', function () {
-        var shortestName = people
-            .min((p1, p2) => p1.name.length - p2.name.length);
+    it('should return the minimum of all array elements applyin the lenght specification', function () {
 
-        expect(shortestName.name).to.equal('top');
+        expect(people.min((p1, p2) => p1.name.length - p2.name.length).name).to.equal('top');
     });
 
-    it('should return the sum of all array elements applyin the spec', function () {
-        var jounger = people
-            .min((p1, p2) => p1.age - p2.age);
+    it('should return the minimum of all array elements applyin the oldest specification', function () {
 
-        expect(jounger.name).to.equal('pedro');
+        expect(people.min((p1, p2) => p1.age - p2.age).name).to.equal('pedro');
     });
 
 });

@@ -4,7 +4,6 @@ var expect = chai.expect;
 require('./../src/array-linq');
 
 var children = [
-
     { name: 'ana', sex: 'f' },
     { name: 'fosto', sex: 'm' },
     { name: 'jane', sex: 'f' },
@@ -14,26 +13,18 @@ var children = [
     { name: 'rod', sex: null },
     { name: 'auro', sex: 'f' },
     { name: 'martin', sex: 'm' }
-],
-    messageList = [];
+];
 
 
-describe('array extension methods count', function () {
-    afterEach(function () {
-        kid = null;
+describe('array extension methods count(spec)', function () {    
+
+    it('should return 9 when no specification added', function () {       
+
+        expect(children.count()).to.equal(9);
     });
 
-    it('should count(spec) return array lenght if no specification added', function () {
-        var childrenNumber = children
-            .count();
+    it('should return 5 with female specification', function () {
 
-        expect(childrenNumber).to.equal(9);
-    });
-
-    it('should count(spec) return the number of elements that accomplish the specification added', function () {
-        var childrenNumber = children
-            .count(child => child.sex === 'f');
-
-        expect(childrenNumber).to.equal(5);
+        expect(children.count(child => child.sex === 'f')).to.equal(5);
     });
 });

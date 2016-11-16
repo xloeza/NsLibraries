@@ -1,7 +1,35 @@
 Object.prototype.method = function(name, func) {
-    this.prototype[name] = func;
-    return this;
+    if (!this.prototype[name]) {
+        this.prototype[name] = func;
+        return this;
+    }
 };
+
+Object.prototype.defTrueSpecMethod = function(name, func) {
+    if (!this.prototype[name]) {
+        this.prototype[name] = function(spec) {
+            return func.call(this, toDefTrueSpecMethod(spec))
+        }
+        return this;
+    }
+};
+
+Object.prototype.defEqualSpecMethod = function(name, func) {
+    if (!this.prototype[name]) {
+        this.prototype[name] = function(spec) {
+            return func.call(this, toDefEqualSpecMethod(spec))
+        }
+        return this;
+    }
+};
+
+function toDefTrueSpecMethod(spec) {
+    return (spec !== undefined) ? spec : obj => true;
+}
+
+function toDefEqualSpecMethod(spec) {
+    return (typeof spec === "function") ? spec : obj => obj === spec;
+}
 
 if (typeof Array.isArray === "undefined") {
     Array.isArray = function(arg) {
@@ -10,238 +38,95 @@ if (typeof Array.isArray === "undefined") {
 }
 
 Array.method('each', function(spec) {
-    var arrayLength = this.length;
-
-    for (var x = 0; x < arrayLength; x = x + 1) {
-        spec(this[x], x);
+    var len = this.length;
+    for (var index = 0; index < len; index += 1) {
+        spec(this[index], index);
     }
 });
 
 Array.method('where', function(spec) {
-    var filterArray = [];
-    this.each((element, index) => {
-
-        if (spec(element)) {
-            filterArray.push(element);
+    var result = [];
+    this.each(obj => {
+        if (spec(obj)) {
+            result.push(obj);
         }
     });
-
-    return filterArray;
+    return result;
 });
 
-Array.method('any', function(spec) {
-    var arrayLength = this.length;
-    for (var x = 0; x < arrayLength; x = x + 1) {
-        if (typeof spec === "function") {
-            if (spec(this[x])) {
-                return true;
-            }
-        }
-        else {
-            var anyValuesArrayLenght = arguments.length;
-            for (var y = 0; y < anyValuesArrayLenght; y++) {
-                if (this[x] === arguments[y]) {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
+Array.defEqualSpecMethod('any', function(spec) {
+    return this.index(spec) >= 0 ? true : false;
 });
 
 Array.method('select', function(spec) {
-    var selectArray = [];
-
-    this.each((element, index) => {
-        selectArray.push(spec(element))
-    });
-
-    return selectArray;
+    return this.map(obj => spec(obj));
 });
 
 Array.method('take', function(howMany, spec) {
-    var taked = [];
-
-    var arrayLength = this.length;
-    if (howMany > 0) {
-        if (spec === undefined) {
-            for (var x = 0; x < arrayLength && x < howMany; x = x + 1) {
-                taked.push(this[x]);
-            }
-        }
-        else {
-            return this.where(spec).take(howMany);
-        }
-
-    }
-
-    return taked;
+    return (spec === undefined) ? this.slice(0, howMany) : this.where(spec).take(howMany);
 });
 
 Array.method('skip', function(howMany) {
-    var taked = [];
-    var arrayLength = this.length;
-    if (howMany === 0) {
-        return this;
-    }
-    if (arrayLength > howMany) {
-        taked = this.slice(howMany, arrayLength);
-    }
-
-    return taked;
+    return this.slice(howMany)
 });
 
-Array.method('first', function(spec) {
-    var first = null,
-        element = null,
-        arrayLength = 0,
-        count = 0;
-    if (this !== null) {
-        if (spec === undefined) {
-            first = this[0]
-        }
-        else {
-            var arrayLength = this.length;
-
-            while (count < arrayLength && first === null) {
-                element = this[count]
-                if (spec(element)) {
-                    first = element;
-                }
-                count = count + 1;
-            };
+Array.defTrueSpecMethod('first', function(spec) {
+    var len = this.length;
+    for (var index = 0; index < len; index += 1) {
+        if (spec(this[index])) {
+            return this[index];
         }
     }
-
-    return first;
+    return null;
 });
 
-Array.method('last', function(spec) {
-    var last = null,
-        element = null,
-        arrayLength = 0,
-        count = 0;
-    if (this !== null) {
-        var arrayLength = this.length;
-        if (spec === undefined) {
-            last = this[arrayLength - 1]
-        }
-        else {
-            count = arrayLength - 1;
-            while (count >= 0 && last === null) {
-                element = this[count]
-                if (spec(element)) {
-                    last = element;
-                }
-                count = count - 1;
-            };
+Array.defTrueSpecMethod('last', function(spec) {
+    var len = this.length;
+    for (var index = len - 1; index >= 0; index -= 1) {
+        if (spec(this[index])) {
+            return this[index];
         }
     }
-
-    return last;
+    return null;
 });
 
+Array.defTrueSpecMethod('count', function(spec) {
+    return this.where(spec).length;
+});
 
-Array.method('count', function(spec) {
-    var count = 0,
-        length = 0;
-    if (this !== null) {
-        if (spec === undefined) {
-            return this.length;
-        }
-        else {
-            length = this.length;
-            for (var x = 0; x < length; x = x + 1) {
-                if (spec(this[x])) {
-                    count = count + 1
-                }
-            }
+Array.defEqualSpecMethod('index', function(spec) {
+    var len = this.length;
+    if (len === 0) {
+        return -1
+    }
+    for (var index = 0; index < len; index += 1) {
+        if (spec(this[index])) {
+            return index;
         }
     }
-
-    return count;
+    return -1;
 });
 
-Array.method('index', function(spec) {
-    var indexId = -1,
-        count = 0,
-        element = null;
-    if (this !== null) {
-        var arrayLength = this.length;
-        while (count < arrayLength && indexId === -1) {
-            element = this[count]
-            if (typeof spec === "function") {
-                if (spec(element)) {
-                    indexId = count;
-                }
-            }
-            else {
-                if (element === spec) {
-                    indexId = count;
-                }
-            }
-            count = count + 1;
-        };
-    }
-
-    return indexId;
-});
-
-Array.method('pluck', function(spec) {
-    var pluckArray = [];
-    this.each((element, index) => {
-        pluckArray.push(element[spec]);
-    });
-    return pluckArray;
+Array.method('pluck', function(prop) {
+    return this.map(obj => obj[prop]);
 });
 
 Array.method('sum', function(spec) {
-    var sumVal;
-    if (spec === undefined) {
-        sumVal = this.reduce((a, b) => a + b);
-    }
-    else {
-        sumVal = this.map(spec).reduce((a, b) => a + b);
-    }
-    return sumVal;
+    return (spec === undefined) ? this.reduce((a, b) => a + b) : this.map(spec).reduce((a, b) => a + b);
 });
 
 Array.method('max', function(comparer) {
-    if (this === null || this.length === 0) {
-        return null
-    }
-    if (comparer === undefined) {
-        return this.reduce((a, b) => a > b ? a : b);
-    }
-    else {
-        return this.reduce((a, b) => comparer(a, b) > 0 ? a : b);
-    }
+    return (comparer === undefined) ? this.reduce((a, b) => a > b ? a : b) : this.reduce((a, b) => comparer(a, b) > 0 ? a : b);
 });
 
 Array.method('min', function(comparer) {
-    if (this === null || this.length === 0) {
-        return null
-    }
-    if (comparer === undefined) {
-        return this.reduce((a, b) => a > b ? b : a);
-    }
-    else {
-        return this.reduce((a, b) => comparer(a, b) > 0 ? b : a);
-    }
+    return (comparer === undefined) ? this.reduce((a, b) => a > b ? b : a) : this.reduce((a, b) => comparer(a, b) > 0 ? b : a);
 });
-
 
 Array.method('flatten', function(comparer) {
     var flattened = [];
-    this.each((element, index) => {
-        if (!Array.isArray(element)) {
-            flattened.push(element);
-        }
-        else {
-            var arrayNew = element.flatten();
-            flattened.push(...arrayNew);
-        }
+    this.each(obj => {
+        !Array.isArray(obj) ? flattened.push(obj) : flattened.push(...obj.flatten());
     });
-
     return flattened;
 });
