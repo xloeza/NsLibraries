@@ -13,7 +13,7 @@ var people = [
   messageList = [];
 
 
-describe('array extension methods each', function () {
+describe('array extension methods each(obj, idx)', function () {
 
   it('should executes callback(x, i) for each element of array', function () {
     people.each((x, i) => {

@@ -13,18 +13,10 @@ var people = [
   messageList = [];
 
 
-describe('array extension methods select', function () {
+describe('array extension methods select(spec)', function () {
 
   it('should executes spec(x) for each element of array', function () {
-    people
-      .select(dev => dev.name)
-      .each(x => messageList.push(x));
 
-    expect(messageList.length).to.equal(5);
-    expect(messageList[0]).to.equal('pedro');
-    expect(messageList[1]).to.equal('juan');
-    expect(messageList[2]).to.equal('pablo');
-    expect(messageList[3]).to.equal('pancho');
-    expect(messageList[4]).to.equal('topo');
+    expect(people.select(dev => { return { name: dev.name } })).to.eql([{ name: 'pedro' }, { name: 'juan' }, { name: 'pablo' }, { name: 'pancho' }, { name: 'topo' }]);
   });
 });

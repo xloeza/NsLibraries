@@ -7,35 +7,34 @@ var people = [
   { name: 'pedro', age: 29, skills: ['C#', 'Asp.Net', 'OOP'] },
   { name: 'juan', age: 23, skills: ['PHP', 'Drink tea'] },
   { name: 'pablo', age: 26, skills: ['RoR', 'HTML/CSS'] }
-],
-  messageList = [],
-  logPerson = (x, i) => {
-    var message = (i + 1) + '.- ' + x.name + ' is ' + x.age + ' years old';
-    messageList.push(message);
-  };
+];
 
-describe('array extension method any', function () {
-  afterEach(function () {
-    messageList = [];
+describe('array extension method any(spec)', function () {
+
+  it('should return true when contains filter', function () {
+
+    expect(people.any(person => person.age == 23)).to.be.true;
+    expect(people.any(person => person.age > 23)).to.be.true;
+    expect(people.any(person => person.name.length > 3)).to.be.true;
+    expect(["One", "Two", "Three"].any("Three")).to.be.true;
+
   });
 
+  it('should return false when not contains filter', function () {
+    expect(people.any(person => person.age == 15)).to.be.false;
+    expect(people.any(person => person.age < 23)).to.be.false;
+    expect(people.any(person => person.name.length > 10)).to.be.false;
+    expect(["One", "Two", "Three"].any("Four")).to.be.false;
 
-  it('should where method be linked with each and print filtered list using any callback', function () {
-    people.where(dev => !dev.skills.any(skill => skill === 'PHP'))
-      .each(logPerson);
-
-    expect(messageList.length).to.equal(2);
-    expect(messageList[0]).to.equal('1.- pedro is 29 years old');
-    expect(messageList[1]).to.equal('2.- pablo is 26 years old');
   });
 
-  it('should where method be linked with each and print filtered list using any array', function () {
-    people.where(dev => !dev.skills.any('PHP'))
-      .each(logPerson);
-
-    expect(messageList.length).to.equal(2);
-    expect(messageList[0]).to.equal('1.- pedro is 29 years old');
-    expect(messageList[1]).to.equal('2.- pablo is 26 years old');
+  it('should return true when inner any contains filter', function () {
+    expect(people.any(person => person.skills.any('C#'))).to.be.true;
+    expect(people.any(person => person.skills.any(skill => skill.length > 2))).to.be.true;
   });
 
+  it('should return true when inner any not contains filter', function () {
+    expect(people.any(person => person.skills.any('Java'))).to.be.false;
+    expect(people.any(person => person.skills.any(skill => skill.length > 10))).to.be.false;
+  });
 });

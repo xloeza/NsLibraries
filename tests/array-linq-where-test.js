@@ -14,29 +14,22 @@ var people = [
     messageList.push(message);
   };
 
-describe('array extension method where', function () {
+describe('array extension method where(spec)', function () {
 
-  it('should where method filter list to return two elements', function () {
+  it('should return filtered list with specification elements', function () {
 
-    var notPhpDevs = people.where(dev => {
-      var skills = dev.skills.where(skill => skill === 'PHP');
-      return skills.length === 0;
-    }
-    );
+    expect(people.where(dev => dev.skills.where(skill => skill === 'PHP').length === 0)).to.eql([
+      { name: 'pedro', age: 29, skills: ['C#', 'Asp.Net', 'OOP'] },
+      { name: 'pablo', age: 26, skills: ['RoR', 'HTML/CSS'] }
+    ]);
 
-    expect(notPhpDevs.length).to.equal(2);
+    expect(people.where(dev => dev.age < 25)).to.eql([
+      { name: 'juan', age: 23, skills: ['PHP', 'Drink tea'] }
+    ]);
+
+    it('should return empty list if there is values in specification', function () {
+
+      expect(people.where(dev => dev.age < 15).length).to.be.equal(0);
+    });
   });
-
-  it('should where method be linked with each and print filtered list', function () {
-    people.where(function (dev) {
-      var skills = dev.skills.where(function (skill) { return skill === 'PHP'; });
-      return skills.length === 0;
-    })
-      .each(logPerson);
-
-    expect(messageList.length).to.equal(2);
-    expect(messageList[0]).to.equal('1.- pedro is 29 years old');
-    expect(messageList[1]).to.equal('2.- pablo is 26 years old');
-  });
-
 });

@@ -14,21 +14,16 @@ var children = [
     { name: 'rod', sex: null },
     { name: 'auro', sex: 'f' },
     { name: 'martin', sex: 'm' }
-],
-    messageList = [];
+]
 
 
-describe('array extension methods pluck', function () {
+describe('array extension methods pluck(prop)', function () {
 
 
-    it('should pluck(spec) return array with the property', function () {
-        children
-            .pluck('name')
-            .each(x => messageList.push(x));
-
-
-        expect(messageList.length).to.equal(9);
-
+    it('should return an array with the property defined', function () {
+       
+        expect(children.pluck('name')).to.eql(['ana', 'fosto', 'jane', 'yadi', 'lili', 'bany', 'rod', 'auro', 'martin']);
+        expect(children.pluck('sex')).to.eql(['f', 'm', 'f', 'f', 'f', 'm', null, 'f', 'm']);
     });
 
 });

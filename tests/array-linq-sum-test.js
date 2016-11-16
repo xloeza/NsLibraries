@@ -13,32 +13,24 @@ var people = [
 describe('array extension methods sum', function () {
 
 
-    it('should return the sum of all array elements', function () {
-        var sum = [1, 3, 5, 7, 9, 11]
-            .sum();
+    it('should return the summatory of all array elements', function () {
+        
+        expect([1, 3, 5, 7, 9, 11].sum()).to.equal(36);
+    });
 
-        expect(sum).to.equal(36);
+    it('should return the summatory of all array elements applying the specification', function () {
+
+        expect([1, 3, 5, 7, 9, 11].sum(x => x * 2)).to.equal(72);
     });
 
     it('should return the sum of all array elements applyin the spec', function () {
-        var sum = [1, 3, 5, 7, 9, 11]
-            .sum(x => x * 2);
 
-        expect(sum).to.equal(72);
+        expect(people.sum(person => person.age)).to.equal(65);
     });
 
-    it('should return the sum of all array elements applyin the spec', function () {
-        var sum = people
-            .sum(person => person.age);
+    it('should return the concatenation of all array elements', function () {
 
-        expect(sum).to.equal(65);
-    });
-
-    it('should return the sum of all array elements applyin the spec', function () {
-        var sum = ['[1]', '[2]', '[3]']
-            .sum();
-
-        expect(sum).to.equal('[1][2][3]');
+        expect(['[1]', '[2]', '[3]'].sum()).to.equal('[1][2][3]');
     });
 
 
