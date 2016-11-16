@@ -4,5 +4,30 @@
     "mocha": "^3.1.2",
     "mocha-sinon": "^1.1.6",
     "sinon": "^1.17.6"
-  }
+  },
+  "name": "nslibrary",
+  "version": "1.0.0",
+  "description": "Project to extend array methods with more functionality",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha-sinon": "^1.1.6",
+    "sinon": "^1.17.6"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha tests --recursive --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xloeza/NsLibraries.git"
+  },
+  "author": "Xavier Loeza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xloeza/NsLibraries/issues"
+  },
+  "homepage": "https://github.com/xloeza/NsLibraries#readme"
 }
