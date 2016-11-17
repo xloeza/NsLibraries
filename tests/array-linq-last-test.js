@@ -28,5 +28,4 @@ describe('array extension methods last(spec)', () => {
 
         expect(children.last(child => child.sex === 'u')).to.equal(null);
     });
-
 });

@@ -8,7 +8,6 @@ var people = mocks.people;
 
 describe('array extension methods min(spec)', () => {
 
-
     it('should return the minimum of all array elements', () => {
 
         expect([10, 3, 5, 1, 7, 9, 11].min()).to.equal(1);
@@ -23,5 +22,4 @@ describe('array extension methods min(spec)', () => {
 
         expect(people.min((p1, p2) => p1.age - p2.age).name).to.equal('juan');
     });
-
 });

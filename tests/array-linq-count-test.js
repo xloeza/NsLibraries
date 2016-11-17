@@ -6,9 +6,9 @@ var mocks = require('./../mocks/mocks.json');
 
 var children = mocks.children;
 
-describe('array extension methods count(spec)', () => {    
+describe('array extension methods count(spec)', () => {
 
-    it('should return 9 when no specification added', () => {       
+    it('should return 9 when no specification added', () => {
 
         expect(children.count()).to.equal(9);
     });

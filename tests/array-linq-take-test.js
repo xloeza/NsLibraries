@@ -18,5 +18,4 @@ describe('array extension methods take(spec)', () => {
 
         expect(children.take(3, child => child.sex === 'f')).to.eql([{ name: 'ana', sex: 'f' }, { name: 'jane', sex: 'f' }, { name: 'yadi', sex: 'f' }]);
     });
-
 });

@@ -10,7 +10,7 @@ describe('array extension methods sum', () => {
 
 
     it('should return the summatory of all array elements', () => {
-        
+
         expect([1, 3, 5, 7, 9, 11].sum()).to.equal(36);
     });
 
@@ -28,6 +28,4 @@ describe('array extension methods sum', () => {
 
         expect(['[1]', '[2]', '[3]'].sum()).to.equal('[1][2][3]');
     });
-
-
 });

@@ -8,7 +8,7 @@ var children = mocks.children;
 
 
 describe('array extension methods skip(howMany)', () => {
-    
+
     it('should return  a new array without the first howmany elements', () => {
 
         expect(children.skip(3)).to.eql([{ name: 'yadi', sex: 'f' }, { name: 'lili', sex: 'f' }, { name: 'bany', sex: 'm' }, { name: 'rod', sex: null }, { name: 'auro', sex: 'f' }, { name: 'martin', sex: 'm' }]);

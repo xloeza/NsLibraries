@@ -23,5 +23,4 @@ describe('array extension methods max(spec)', () => {
 
         expect(people.max((p1, p2) => p1.age - p2.age).name).to.equal('pancho');
     });
-
 });

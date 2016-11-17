@@ -8,7 +8,7 @@ var children = mocks.children;
 
 
 describe('array extension methods first(spec)', () => {
-    
+
 
     it('should return first element in array when no spec defined', () => {
 
@@ -29,5 +29,4 @@ describe('array extension methods first(spec)', () => {
 
         expect(children.first(child => child.sex === 'u')).to.equal(null);
     });
-
 });
