@@ -45,36 +45,32 @@ Array.method('each', function(spec) {
 });
 
 Array.method('where', function(spec) {
-    var result = [];
-    this.each(obj => {
+    return this.reduce((res, obj) => {       
         if (spec(obj)) {
-            result.push(obj);
+            res.push(obj);
         }
-    });
-    return result;
+        return res;
+    }, []);    
 });
 
 Array.defEqualSpecMethod('any', function(spec) {
-    return this.index(spec) >= 0 ? true : false;
+    return this.index(spec) >= 0 ;
 });
 
-Array.method('select', function(spec) {
-    return this.map(obj => spec(obj));
-});
+Array.method('select', Array.prototype.map);
 
 Array.method('take', function(howMany, spec) {
     return (spec === undefined) ? this.slice(0, howMany) : this.where(spec).take(howMany);
 });
 
-Array.method('skip', function(howMany) {
-    return this.slice(howMany)
-});
+Array.method('skip', Array.prototype.slice);
 
 Array.defTrueSpecMethod('first', function(spec) {
     var len = this.length;
     for (var index = 0; index < len; index += 1) {
-        if (spec(this[index])) {
-            return this[index];
+        var obj = this[index]; 
+        if (spec(obj)) {
+            return obj;
         }
     }
     return null;
@@ -83,8 +79,9 @@ Array.defTrueSpecMethod('first', function(spec) {
 Array.defTrueSpecMethod('last', function(spec) {
     var len = this.length;
     for (var index = len - 1; index >= 0; index -= 1) {
-        if (spec(this[index])) {
-            return this[index];
+        var obj = this[index]; 
+        if (spec(obj)) {
+            return obj;
         }
     }
     return null;
@@ -96,9 +93,6 @@ Array.defTrueSpecMethod('count', function(spec) {
 
 Array.defEqualSpecMethod('index', function(spec) {
     var len = this.length;
-    if (len === 0) {
-        return -1
-    }
     for (var index = 0; index < len; index += 1) {
         if (spec(this[index])) {
             return index;
@@ -124,9 +118,11 @@ Array.method('min', function(comparer) {
 });
 
 Array.method('flatten', function(comparer) {
-    var flattened = [];
-    this.each(obj => {
-        !Array.isArray(obj) ? flattened.push(obj) : flattened.push(...obj.flatten());
-    });
+    var flattened = [];    
+    flat(this);
     return flattened;
+
+    function flat(obj) {
+        !Array.isArray(obj) ? flattened.push(obj) : obj.each( item => flat(item));          
+    }
 });
