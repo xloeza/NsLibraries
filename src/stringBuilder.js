@@ -2,10 +2,25 @@ require('./array-linq');
 
 StringBuilder = (function () {
     var buffer = [];
+    var wrappers = [];
+
+    var concatenate = function(...val){
+        val.flatten().each(obj => typeof obj === "function" ? concatenate([obj()]) : buffer.push(obj.toString()));
+    }
+
+    var addPrefix = function(){
+        wrappers.where(obj => obj.prefix.length > 0).each(obj => concatenate(obj.prefix));
+    }
+
+    var addSuffix = function(){
+        wrappers.where(obj => obj.suffix.length > 0).each(obj => concatenate(obj.suffix));
+    }
 
     return {
         cat: function (...val) {
-            val.flatten().each(obj => { typeof obj === "function" ? buffer.push(obj()) : buffer.push(obj) });
+            addPrefix();
+            concatenate(val);
+            addSuffix();
             return this;
         },
         bufferSize: function () {
@@ -13,6 +28,7 @@ StringBuilder = (function () {
         },
         clear: function () {
             buffer = [];
+            wrappers = [];
         },
         string: function () {
             return buffer.join('');
@@ -24,10 +40,14 @@ StringBuilder = (function () {
             }
             return this;
         },
-        catIf(flag, ...val){
+        catIf: function(flag, ...val){
             if(flag){
                 this.cat(val);
             }
+            return this;
+        },
+        wrap: function(pre, suf){
+            wrappers.push({ prefix: arguments[0], suffix: arguments[1]})            
             return this;
         }
     };
