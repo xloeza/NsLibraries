@@ -23,6 +23,12 @@ StringBuilder = (function () {
                 this.cat(val);
             }
             return this;
+        },
+        catIf(flag, ...val){
+            if(flag){
+                this.cat(val);
+            }
+            return this;
         }
     };
 } ());
