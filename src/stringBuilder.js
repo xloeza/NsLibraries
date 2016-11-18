@@ -13,6 +13,9 @@ StringBuilder = (function () {
         },
         clear: function () {
             buffer = [];
+        },
+        string: function () {
+            return buffer.join('');
         }
     };
 } ());
