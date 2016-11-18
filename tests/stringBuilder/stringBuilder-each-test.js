@@ -9,7 +9,7 @@ var sb = StringBuilder;
 var count = 0;
 
 
-var funcTest2 = function(dev){
+var funcConcat = function(dev){
     this.cat('[', dev.name, ']');
 };
 
@@ -20,7 +20,7 @@ describe('StringBuilder method each', () => {
 
     it('should iterate over array', () => {
     
-        expect(sb.each(developers, funcTest2 ).string()).to.equal('[pedro][juan][pablo]');        
+        expect(sb.each(developers, funcConcat ).string()).to.equal('[pedro][juan][pablo]');        
     });
 
 });
