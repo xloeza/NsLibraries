@@ -53,6 +53,10 @@ StringBuilder = (function() {
         end: function(deep) {
             (deep === null || deep === undefined) ? wrappers.pop() : wrappers.splice(wrappers.length - deep, deep);
             return this;
+        },
+        prefix: function(...pre){
+            wrappers.push({ prefix: pre, suffix: [] })
+            return this;
         }
     };
 } ());
