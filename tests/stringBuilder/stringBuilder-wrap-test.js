@@ -11,12 +11,12 @@ describe('StringBuilder method wrap', () => {
     });
 
     it('should add a prefix and suffix to every concatenation added', () => {
-        console.log(sb.string());
+        
         expect(sb.wrap('<', '>').rep(5, 'hello').string()).to.equal('<hello><hello><hello><hello><hello>');
     });
 
     it('should add a prefix and suffix and execute functions', () => {
-        console.log(sb.string());
+        
         expect(sb.wrap(['[', () => count += 1], ']').rep(5, '.-hello').string()).to.equal('[1.-hello][2.-hello][3.-hello][4.-hello][5.-hello]');
     });
 });
