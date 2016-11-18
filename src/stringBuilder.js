@@ -8,7 +8,7 @@ StringBuilder = (function () {
             val.flatten().each(obj => { typeof obj === "function" ? buffer.push(obj()) : buffer.push(obj) });
             return this;
         },
-        len: function () {
+        bufferSize: function () {
             return buffer.length;
         },
         clear: function () {
@@ -16,6 +16,13 @@ StringBuilder = (function () {
         },
         string: function () {
             return buffer.join('');
+        },
+        rep: function (howManyTimes, ...val) {
+            var i;
+            for(i = 0; i< howManyTimes; i += 1){
+                this.cat(val);
+            }
+            return this;
         }
     };
 } ());
