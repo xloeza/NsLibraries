@@ -65,6 +65,10 @@ StringBuilder = (function() {
         each: function(array, spec) {
             array.each((value, index) => spec.call(this, value, index, array));
             return this;
+        },
+        when: function(spec, then, otherWise){
+            (spec) ? this.cat(then) : this.cat(otherWise);
+            return this;
         }
     };
 } ());
