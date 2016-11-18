@@ -32,7 +32,7 @@ describe('StringBuilder method cat', () => {
 
     it('should be able of add the result of a function', () => {
 
-        expect(sb.cat('Hello ', () => 'World').len()).to.equal(5)
+        expect(sb.cat('Hello ', () => 'World').len()).to.equal(2)
     });
 
 });

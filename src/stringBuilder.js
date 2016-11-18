@@ -5,7 +5,7 @@ StringBuilder = (function () {
 
     return {
         cat: function (...val) {
-            val.flatten().each(obj => typeof obj === "function" ? buffer.push(obj()) : buffer.push(obj));
+            val.flatten().each(obj => { typeof obj === "function" ? buffer.push(obj()) : buffer.push(obj) });
             return this;
         },
         len: function () {
@@ -13,6 +13,9 @@ StringBuilder = (function () {
         },
         clear: function () {
             buffer = [];
+        },
+        string: function () {
+            return buffer.join('');
         }
     };
 } ());
