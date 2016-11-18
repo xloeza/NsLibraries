@@ -57,6 +57,10 @@ StringBuilder = (function() {
         prefix: function(...pre){
             wrappers.push({ prefix: pre, suffix: [] })
             return this;
+        },
+        suffix: function(...suf){
+            wrappers.push({ prefix: [], suffix: suf })
+            return this;
         }
     };
 } ());

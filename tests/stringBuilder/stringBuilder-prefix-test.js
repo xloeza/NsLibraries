@@ -15,9 +15,8 @@ describe('StringBuilder method prefix', () => {
         expect(sb.prefix('-').rep(5, 'hello ').string()).to.equal('-hello -hello -hello -hello -hello ');        
     });
 
-    it('should add a prefix and suffix and execute functions', () => {
+    it('should add a prefix and execute functions', () => {
         
-        expect(sb.prefix(() => count += 1, '.-').rep(2, 'hello ').string()).to.equal('1.-hello 2.-hello ');
-        console.log(sb.string());
+        expect(sb.prefix(() => count += 1, '.-').rep(2, 'hello ').string()).to.equal('1.-hello 2.-hello ');        
     });
 });
