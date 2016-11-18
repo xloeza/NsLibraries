@@ -68,6 +68,7 @@ StringBuilder = (function() {
         },
         when: function(spec, then, otherWise){
             (spec) ? this.cat(then) : this.cat(otherWise);
+            return this;
         }
     };
 } ());
