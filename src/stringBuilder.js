@@ -47,19 +47,23 @@ StringBuilder = (function() {
             return this;
         },
         wrap: function(pre, suf) {
-            wrappers.push({ prefix: arguments[0], suffix: arguments[1] })
+            wrappers.push({ prefix: arguments[0], suffix: arguments[1] });
             return this;
         },
         end: function(deep) {
             (deep === null || deep === undefined) ? wrappers.pop() : wrappers.splice(wrappers.length - deep, deep);
             return this;
         },
-        prefix: function(...pre){
-            wrappers.push({ prefix: pre, suffix: [] })
+        prefix: function(...pre) {
+            wrappers.push({ prefix: pre, suffix: [] });
             return this;
         },
-        suffix: function(...suf){
-            wrappers.push({ prefix: [], suffix: suf })
+        suffix: function(...suf) {
+            wrappers.push({ prefix: [], suffix: suf });
+            return this;
+        },
+        each: function(array, spec) {
+            array.each((value, index) => spec.call(this, value, index, array));
             return this;
         }
     };
