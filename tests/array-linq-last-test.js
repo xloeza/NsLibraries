@@ -2,41 +2,30 @@
 var chai = require('chai');
 var expect = chai.expect;
 require('./../src/array-linq');
+var mocks = require('./../mocks/mocks.json');
 
-var children = [
-
-    { name: 'ana', sex: 'f' },
-    { name: 'fosto', sex: 'm' },
-    { name: 'jane', sex: 'f' },
-    { name: 'yadi', sex: 'f' },
-    { name: 'lili', sex: 'f' },
-    { name: 'bany', sex: 'm' },
-    { name: 'rod', sex: null },
-    { name: 'auro', sex: 'f' },
-    { name: 'martin', sex: 'm' }
-];
+var children = mocks.children;
 
 
-describe('array extension methods last(spec)', function () {
+describe('array extension methods last(spec)', () => {
 
-    it('should return last element in array when no spec defined', function () {
+    it('should return last element in array when no spec defined', () => {
 
         expect(children.last().name).to.equal('martin');
     });
 
-    it('should return last element in array that accomplish specification', function () {
+    it('should return last element in array that accomplish specification', () => {
 
         expect(children.last(child => child.sex === 'f').name).to.equal('auro');
     });
 
-    it('should last(spec) return null as last element in an empty array', function () {
+    it('should last(spec) return null as last element in an empty array', () => {
 
         expect([].last(child => child.sex === 'm')).to.equal(null);
     });
 
-    it('should last(spec) return null as last element in an empty array if no match specification', function () {
+    it('should last(spec) return null as last element in an empty array if no match specification', () => {
 
         expect(children.last(child => child.sex === 'u')).to.equal(null);
     });
-
 });

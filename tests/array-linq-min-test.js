@@ -2,30 +2,24 @@
 var chai = require('chai');
 var expect = chai.expect;
 require('./../src/array-linq');
-var people = [
-    { name: 'pedro', age: 10 },
-    { name: 'juan', age: 12 },
-    { name: 'pablo', age: 22 },
-    { name: 'pancho', age: 20 },
-    { name: 'top', age: 12 }
-];
+var mocks = require('./../mocks/mocks.json');
 
-describe('array extension methods min(spec)', function () {
+var people = mocks.people;
 
+describe('array extension methods min(spec)', () => {
 
-    it('should return the minimum of all array elements', function () {
+    it('should return the minimum of all array elements', () => {
 
         expect([10, 3, 5, 1, 7, 9, 11].min()).to.equal(1);
     });
 
-    it('should return the minimum of all array elements applyin the lenght specification', function () {
+    it('should return the minimum of all array elements applyin the lenght specification', () => {
 
-        expect(people.min((p1, p2) => p1.name.length - p2.name.length).name).to.equal('top');
+        expect(people.min((p1, p2) => p1.name.length - p2.name.length).name).to.equal('juan');
     });
 
-    it('should return the minimum of all array elements applyin the oldest specification', function () {
+    it('should return the minimum of all array elements applyin the oldest specification', () => {
 
-        expect(people.min((p1, p2) => p1.age - p2.age).name).to.equal('pedro');
+        expect(people.min((p1, p2) => p1.age - p2.age).name).to.equal('juan');
     });
-
 });
